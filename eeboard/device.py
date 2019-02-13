@@ -9,7 +9,11 @@ Updated to V06 @2018.09.12
 from dwfconstants import *
 from ctypes import *
 import time
-dwf = cdll.dwf
+import sys
+if sys.platform.startswith("win"):
+    dwf=cdll.dwf
+else:
+    dwf=cdll.LoadLibrary("libdwf.so")
 
 class ErrMsg(Exception):
     def __init__(self,msg):
@@ -22,7 +26,7 @@ class Device():
     idDev=[];
     hdwf=[]; cDevice=[];szDevName=[];szSerialNum=[];szLabel=[];szName=[];szUnits=[];
     szVersion = create_string_buffer(16)
-    def __init__(self,idx=0):
+    def __init__(self,idx=-1):
         if ( not(idx in Device.idDev) ):
             Device.idDev.append(idx)
             Device.hdwf.append(c_int(idx))

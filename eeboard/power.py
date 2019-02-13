@@ -83,7 +83,7 @@ class Power(Device):
         try:
             if not(chnl in ('Vcc','VP+','VP-','Vref1','Vref2')):
                 raise ErrMsg("analog IO : 0(Vcc), 1(VP+), 2(VP-),3(Vref1),4(Vref2")
-            Eflag=dwf.FDwfAnalogIOChannelNodeSet(self.hdwf[self.idx],c_int(channels[chnl]),c_int(nodes['Enable']),c_bool(True))
+            Eflag=dwf.FDwfAnalogIOChannelNodeSet(self.hdwf[self.idx],c_int(channels[chnl]),c_int(nodes['Enable']),c_double(True))
             if (not Eflag):
                 raise ErrMsg("Channel(%s) cannot be enabled"%chnl)             
         except ErrMsg as emsg:
@@ -93,7 +93,7 @@ class Power(Device):
         try:
             if not(chnl in ('Vcc','VP+','VP-','Vref1','Vref2')):
                 raise ErrMsg("analog IO : 0(Vcc), 1(VP+), 2(VP-),3(Vref1),4(Vref2")
-            Eflag=dwf.FDwfAnalogIOChannelNodeSet(self.hdwf[self.idx],c_int(channels[chnl]),c_int(nodes['Enable']),c_bool(False))
+            Eflag=dwf.FDwfAnalogIOChannelNodeSet(self.hdwf[self.idx],c_int(channels[chnl]),c_int(nodes['Enable']),c_double(False))
             if (not Eflag):
                 raise ErrMsg("Channel(%s) cannot be enabled"%chnl)             
         except ErrMsg as emsg:
