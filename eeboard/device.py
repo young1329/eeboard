@@ -36,8 +36,6 @@ class Device():
             Device.szName.append(create_string_buffer(32))
             Device.szLabel.append(create_string_buffer(16))
             Device.szUnits.append(create_string_buffer(16))
-        else :
-            print 'Error'
         
     def __del__(self):
         for idx in Device.idDev:
