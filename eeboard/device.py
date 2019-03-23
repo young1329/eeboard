@@ -37,6 +37,7 @@ class Device():
             Device.szLabel.append(create_string_buffer(16))
             Device.szUnits.append(create_string_buffer(16))
         else :
+            print('passed in device')
             pass
         
     def __del__(self):
@@ -58,16 +59,19 @@ class Device():
                   Device.szSerialNum[idx].value)
             
         
-    def open_device(self,idx=0):
+    def open_device(self,idx=-1):
         szErr = create_string_buffer(512)
         try:
+            hdwf=c_int()
             if (idx in Device.idDev ):
-                dwf.FDwfDeviceOpen(c_int(idx),byref(Device.hdwf[idx]))
+                dwf.FDwfDeviceOpen(c_int(idx),byref(hdwf))
+                print(Device.hdwf[idx].value)
                 if (Device.hdwf[idx].value==0):
                     dwf.FDwfGetLastErrorMsg(szErr)
                     print szErr.value
-                    
                     raise ErrMsg("Device %d may not be connected properly"%(idx))
+                else:
+                    Device.hdwf[idx]=hdwf
             else:
                 raise ErrMsg('Device %d is not exist'%idx)
             
