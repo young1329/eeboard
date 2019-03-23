@@ -85,7 +85,3 @@ class Device():
 
     def CloseAll(self):
         dwf.FDwfDeviceCloseAll()
-
-    # Desctructor
-    def __del__(self):
-        dwf.FDwfDeviceCloseAll()        #close out eeboard
