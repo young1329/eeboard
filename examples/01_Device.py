@@ -15,7 +15,8 @@ from eeboard import Device
 import time
 
 dv=Device()
+dv.open_device()
 dv.get_device_info()
 dv.print_device_info()
-dv.open_device()
 dv.CloseAll()
+del dv
