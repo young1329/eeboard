@@ -26,7 +26,7 @@ class Device():
     idDev=[];
     hdwf=[]; cDevice=[];szDevName=[];szSerialNum=[];szLabel=[];szName=[];szUnits=[];
     szVersion = create_string_buffer(16)
-    def __init__(self,idx=-1):
+    def __init__(self,idx=0):
         if ( not(idx in Device.idDev) ):
             Device.idDev.append(idx)
             Device.hdwf.append(c_int(idx))
@@ -37,8 +37,7 @@ class Device():
             Device.szLabel.append(create_string_buffer(16))
             Device.szUnits.append(create_string_buffer(16))
         else :
-            print('passed in device')
-            pass
+            print 'Error'
         
     def __del__(self):
         for idx in Device.idDev:
@@ -52,26 +51,23 @@ class Device():
             dwf.FDwfEnumSN(c_int(idx),Device.szSerialNum[idx])           #Get the seiral number
             dwf.FDwfGetVersion(Device.szVersion)                  # Get the version info
 
-    def print_device_info(self):
+    def print_device_info(self,idx=0):
         for idx in Device.idDev:
             print('-------------------------------')
             print('Device %d'%(idx)+':'+Device.szDevName[idx].value+'\t'+
                   Device.szSerialNum[idx].value)
             
         
-    def open_device(self,idx=-1):
+    def open_device(self,idx=0):
         szErr = create_string_buffer(512)
         try:
-            hdwf=c_int()
             if (idx in Device.idDev ):
-                dwf.FDwfDeviceOpen(c_int(idx),byref(hdwf))
-                print(Device.hdwf[idx].value)
+                dwf.FDwfDeviceOpen(c_int(-1),byref(Device.hdwf[idx]))
                 if (Device.hdwf[idx].value==0):
                     dwf.FDwfGetLastErrorMsg(szErr)
                     print szErr.value
+                    
                     raise ErrMsg("Device %d may not be connected properly"%(idx))
-                else:
-                    Device.hdwf[idx]=hdwf
             else:
                 raise ErrMsg('Device %d is not exist'%idx)
             
