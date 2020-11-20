@@ -1,7 +1,7 @@
 ''' 
 EEBoard control based on Python
 Coded by Youngsik Kim @Handong University
-Updated to V06 @2018.09.12
+Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
@@ -21,7 +21,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Pattern Reset Error\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
     def DO_check_internal_clock(self):
         try:
@@ -29,7 +29,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Fail to read internal clock information \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
                             # channel int,  fEnable 0 or 1 (true or false )
     def DO_enable_disable(self,channel,fEnable):
@@ -38,7 +38,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Set output eanble failed\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
             
     #set tht initial counter value fHigh=1 high, fHigh=0 low and initial divider factor Div
@@ -48,7 +48,7 @@ class Pattern(Device):
             if(not Eflag):
                 raise ErrMsg("\nSet Counter Init Failed\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
     #similar to set duty but you can assign dividing factor for low and high directly
     def DO_set_counter(self,ch,fLow,fHigh):
@@ -59,7 +59,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Duty set error in Digital Out\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
             
     def DO_set_duty(self,ch,duty):
@@ -70,7 +70,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Duty set error in Digital Out\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
                 
     # fStart=1 means start, fStart=0 make it stop
     def DO_start_stop(self,fStart):
@@ -79,7 +79,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Counter start/stop failed\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
  
     
     def DO_trigsrc(self,ts):   # default is none
@@ -89,7 +89,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Trigger source error in Digital Out\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
 
     # divider value for the specified channel
@@ -99,7 +99,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Divider error in Digital Out\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
             
     def PCtrig(self):
@@ -108,7 +108,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to pc trigger in sceop\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         time.sleep(1)
         
     def DO_set_form(self,ch, sForm):
@@ -118,7 +118,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Output type setting failed \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def DO_set_type(self,ch, strType):
         outtype={'Pulse':c_byte(0),'Custom':c_byte(1),'Random':c_byte(2)}
@@ -127,7 +127,7 @@ class Pattern(Device):
             if (not Eflag):
                 raise ErrMsg("\n Output type setting failed \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def DO_set_data(self,ch,rgBits,count_of_bits):
         try:
@@ -136,4 +136,4 @@ class Pattern(Device):
             if (not Eflag):
                 ErrMsg("\n DO set data failed \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)

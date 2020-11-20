@@ -1,14 +1,13 @@
 '''
-eeboard V 0.1
+eeboard V 0.2
 
 Coded By Youngsik Kim @ CSEE.HGU
-2018. 12.01
+2020. 11.17
 
 Testing Device is connected
 
 print device SN when sucess
 '''
-
 
 from eeboard import Device
 

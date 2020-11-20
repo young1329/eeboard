@@ -1,5 +1,5 @@
 '''
-eebobard V 0.1
+eebobard V 0.2
 Coded By Youngsik Kim @ CSEE . HGU
 
 Test the Power supply and Voltage meter function

@@ -1,7 +1,7 @@
-''' 
+'''
 EEBoard control based on Python
 Coded by Youngsik Kim @Handong University
-Updated to V06 @2018.09.12
+Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
@@ -20,9 +20,9 @@ class ErrMsg(Exception):
         self.msg = msg
     def __str__(self):
         return self.msg
-        
+
 # Device class : System, Device group : detection, get info open / close
-class Device():    
+class Device():
     idDev=[];
     hdwf=[]; cDevice=[];szDevName=[];szSerialNum=[];szLabel=[];szName=[];szUnits=[];
     szVersion = create_string_buffer(16)
@@ -36,7 +36,7 @@ class Device():
             Device.szName.append(create_string_buffer(32))
             Device.szLabel.append(create_string_buffer(16))
             Device.szUnits.append(create_string_buffer(16))
-        
+
     def __del__(self):
         for idx in Device.idDev:
             dwf.FDwfDeviceClose(Device.hdwf[idx])
@@ -52,10 +52,10 @@ class Device():
     def print_device_info(self,idx=0):
         for idx in Device.idDev:
             print('-------------------------------')
-            print('Device %d'%(idx)+':'+Device.szDevName[idx].value+'\t'+
-                  Device.szSerialNum[idx].value)
-            
-        
+            print('Device %d'%(idx)+':'+Device.szDevName[idx].value.decode('utf-8')+'\t'+
+                  Device.szSerialNum[idx].value.decode('utf-8'))
+
+
     def open_device(self,idx=0):
         szErr = create_string_buffer(512)
         try:
@@ -63,14 +63,14 @@ class Device():
                 dwf.FDwfDeviceOpen(c_int(-1),byref(Device.hdwf[idx]))
                 if (Device.hdwf[idx].value==0):
                     dwf.FDwfGetLastErrorMsg(szErr)
-                    print szErr.value
-                    
+                    print(szErr.value)
+
                     raise ErrMsg("Device %d may not be connected properly"%(idx))
             else:
                 raise ErrMsg('Device %d is not exist'%idx)
-            
+
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def PCtrig(self):
         try:
@@ -78,8 +78,22 @@ class Device():
             if (not Eflag):
                 raise ErrMsg("Failed to pc trigger in sceop\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         time.sleep(1)
 
     def CloseAll(self):
         dwf.FDwfDeviceCloseAll()
+
+
+if __name__ == '__main__':
+
+    import time
+
+    dv=Device()
+    dv.open_device()
+    dv.get_device_info()
+    dv.print_device_info()
+    dv.CloseAll()
+    del dv
+
+

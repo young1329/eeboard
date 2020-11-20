@@ -1,14 +1,12 @@
 ''' 
 EEBoard control based on Python
 Coded by Youngsik Kim @Handong University
-Updated to V06 @2018.09.12
+Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
 
 from device import *
-
-
 
 
 schannels={'SCOPE1':0, 'SCOPE2':1, 'SCOPE3':2, 'SCOPE4':3}
@@ -42,7 +40,7 @@ class Scope(Device):
             if ( not Eflag ):
                 raise ErrMsg("Failed SCOPE1 frequency setup")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def SCOPE_samplingfreq(self,sfreq):
         try:
@@ -51,7 +49,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Frailed to set sampling frequency %f"%sfreq)
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def SCOPE_trigsrc(self,ts):
         trigsrc = {'none':c_byte(0),'pc':c_byte(1),'detectoranalogin':c_byte(2),'detectordigitalin':c_byte(3),'analogin':c_byte(4),'digitalin':c_byte(5)}
@@ -60,7 +58,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to set scope trig source set\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def SCOPE_trigtype(self,ttype):
         trigtype = {'edge':0,'pulse':1,'transition':2}
@@ -69,7 +67,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to set scope trig type set\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         
     def SCOPE_trigchannel(self,ch): # channel in  0,1,2,3
         try:
@@ -77,7 +75,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Faile to set the scoep trigger channel set\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def SCOPE_triglevel(self,level): # trig level in volt
         try:
@@ -85,7 +83,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Faile to set the scoep trigger level set\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def SCOPE_trigcond(self,cond): #cond in 'rise' or 'fall'
         trigcond = {'rise':0,'fall':1}
@@ -94,7 +92,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Faile to set the scoep trigger condition set\n")
         except ErrMsg as emsg:
-            print emsg 
+            print(emsg) 
 
     def SCOPE_enable(self,ch):
         try:
@@ -102,7 +100,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to enable %s channel in scope\n"%ch)
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def SCOPE_offset(self,ch,offset):
         try:
@@ -110,7 +108,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to enable %s channel in scope\n"%ch)
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def SCOPE_range(self,ch,amp):
         try:
@@ -118,7 +116,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to enable %s channel in scope\n"%ch)
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
 
     def SCOPE_pctrig(self):
@@ -127,7 +125,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to pc trigger in sceop\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         time.sleep(1)
 
     def SCOPE_configure(self):
@@ -136,7 +134,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("Failed to configure analogin\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def SCOPE_get_data(self):
         sts = c_byte(0)
@@ -148,7 +146,7 @@ class Scope(Device):
                     raise ErrMsg("Failed to scope get data\n")
                 time.sleep(0.001)
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         try:
             Eflag = dwf.FDwfAnalogInStatusData(self.hdwf[self.idx], schannels['SCOPE1'],self.Ch1Voltages,self.num_of_samples)
             Eflag = Eflag and dwf.FDwfAnalogInStatusData(self.hdwf[self.idx], schannels['SCOPE2'],self.Ch2Voltages,self.num_of_samples)
@@ -157,7 +155,7 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("\n Reading Buffer Error in Scope\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         #print "Finished"
       
     def SCOPE_pctrig(self):
@@ -167,5 +165,5 @@ class Scope(Device):
             if (not Eflag):
                 raise ErrMsg("PC trigger error\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         time.sleep(1)    

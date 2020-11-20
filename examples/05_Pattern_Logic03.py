@@ -1,5 +1,5 @@
 '''
-eeboard V 0.1
+eeboard V 0.2
 
 Test Logic / Pattern 02 : Add trigger condition
 
@@ -37,7 +37,7 @@ for i in range(0,4):  #i= 0,1,2,3
     pttn.DO_enable_disable(i,True)
     pttn.DO_set_counter(i,500,500)
     pttn.DO_set_form(i,'PP')
-    
+
 pttn.DO_start_stop(True) # make them output
 
 
@@ -75,5 +75,5 @@ for idx in range(len(data)):
 
 del lg, pttn
 
-plt.stem(data[0:32],'-.')
+plt.stem(data[0:32])
 plt.show()

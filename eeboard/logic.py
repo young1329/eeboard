@@ -1,7 +1,7 @@
 ''' 
 EEBoard control based on Python
 Coded by Youngsik Kim @Handong University
-Updated to V06 @2018.09.12
+Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
@@ -26,7 +26,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n Logic reset error \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def DI_read_record(self):
         sts = c_byte()
@@ -65,7 +65,7 @@ class Logic(Device):
             if(not Eflag):
                 raise ErrMsg("\n Logic Analyzer Acquisition Mode Set Error \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def DI_trigsrc(self,ts):
         trigsrc = {'none':c_byte(0),'pc':c_byte(1),'detectanalog':c_byte(2),'detectdigital':c_byte(3),'analogin':c_byte(4),'digitalin':c_byte(5),'ext1':c_byte(11)}
@@ -74,7 +74,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n Trigger source error in Digital Out\n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def DI_trig_position(self,nPosition):
         try:
@@ -82,7 +82,7 @@ class Logic(Device):
             if (not Eflag):
                 ErrMsg("\n Fail to set DI trig position set \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def DI_trig_prefill(self,nFill):
         try:
@@ -90,7 +90,7 @@ class Logic(Device):
             if (not Eflag):
                 ErrMsg("\n Fail to set DI trig prefill set \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     # fsTye = [fsLow, fsHigh, fsRise, fsFall 1=D0, 2=D1, 4=D2, 8=D3 ... etc
     def DI_trig_set(self,channel,fsType='fsRise'):
@@ -107,7 +107,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n faile to DI trig set \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
     def DI_get_internal_clock(self):
         try:
@@ -115,7 +115,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n Fail to get the internal clock informatoin \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
  
     def DI_set_divider(self,fDiv):
         try:
@@ -123,7 +123,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n Fail to set the clock dividing factor \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     #set number of sample buffers
     def DI_set_samples(self,num_of_samples):
         self.cSamples = num_of_samples
@@ -142,7 +142,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\n Error to set the DI sample buffer \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     # set the number of bits : valid = 8, 16, 32
     def DI_set_sample_bits(self,nBits):
@@ -153,7 +153,7 @@ class Logic(Device):
             if (not Eflag):
                 ErrMsg("\n faile to set the number of bits for sample \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def DI_start_acquisition(self):
         try:
@@ -162,7 +162,7 @@ class Logic(Device):
             if (not Eflag):
                 raise ErrMsg("\ fail to start DI acquisition \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def DI_read_buffer(self):
         sts = c_ubyte()
@@ -173,7 +173,7 @@ class Logic(Device):
                 if ( not Eflag):
                     raise ErrMsg("\n Fail to start acquisition  \n")
             except ErrMsg as emsg:
-                print emsg
+                print(emsg)
             if (sts.value == stsDone.value):
                 finished = True
             time.sleep(1)
@@ -184,5 +184,5 @@ class Logic(Device):
             if ( not Eflag ):
                 raise ErrMsg("\n Fail to read out DI data buffer \n")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             

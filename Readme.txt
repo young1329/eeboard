@@ -2,7 +2,9 @@ Library for EEBoard
 
 Digilentinc - Waveforms must be installed first
 
-copy "eeboard" foler under "Python27/Lib/site-packages"
+copy "eeboard" to any folder you like ex) /home/eeboard
+and set PYTHONPATH environment variable
+ex) export PYTHONPAHT=$PYTHONPAHT;/home/eeboard   on ubuntu
 
 .
 |-- Readme.txt   : this file

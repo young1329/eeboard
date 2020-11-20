@@ -1,7 +1,7 @@
 ''' 
 EEBoard control based on Python
 Coded by Youngsik Kim @Handong University
-Updated to V06 @2018.09.12
+Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
@@ -46,7 +46,7 @@ class Power(Device):
             else:
                 print('Numberof Channel is %d \n'%(self.nChannel.value))
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def get_nodes_of_channels(self,chnl=0):
         nNode = c_int()
@@ -62,7 +62,7 @@ class Power(Device):
                 raise ErrMsg('Cannot get the infomation %d channel'%(chnl))
         except ErrMsg as emsg:
             self.CloseAll()
-            print emsg
+            print(emsg)
     def what_is_channel_node(self,chnl=0,node=0):
         try:
             Eflag = dwf.FDwfAnalogIOChannelName(self.hdwf[self.idx],chnl,self.szChannel,self.szLabel)
@@ -76,7 +76,7 @@ class Power(Device):
                 raise ErrMsg('Cannot figure it out %d channel'%(chnl))
         except ErrMsg as emsg:
             self.CloseAll()
-            print emsg
+            print(emsg)
 
     
     def enable_channel(self,chnl):
@@ -87,7 +87,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Channel(%s) cannot be enabled"%chnl)             
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def disable_channel(self,chnl):
         try:
@@ -97,7 +97,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Channel(%s) cannot be enabled"%chnl)             
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
     
     def set_channel_voltage(self,chnl,Vltg):
@@ -114,7 +114,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Channel(%s) voltage set error"%chnl)    
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
     
     def set_channel_current(self,chnl,Crrnt):
         try:
@@ -128,7 +128,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Channel(%s) current set error"%chnl)            
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         
     def analogIO_configure(self):
         try:
@@ -136,7 +136,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Analog IO Configured")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         
     def analogIO_ON(self):
         try:
@@ -144,7 +144,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Analog IO cannot be On")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def analogIO_OFF(self):
         try:
@@ -152,7 +152,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Anloag IO cannot be OFF")
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
         
     
     def measure_vmtr(self):
@@ -168,7 +168,7 @@ class Power(Device):
             if (not Eflag):
                 raise ErrMsg("Vmtr1 read error")                        
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
     def get_vmtr(self,idx):
         return self.Vmtr[idx].value;
@@ -184,7 +184,7 @@ class Power(Device):
                 raise ErrMsg("get_crntVP error")
             return self.crntVP
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def get_crntVN(self):
         try:
@@ -197,7 +197,7 @@ class Power(Device):
                 raise ErrMsg("get_crntVN error")
             return self.crntVN
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
 
     def get_crntVCC(self):
         try:
@@ -210,5 +210,46 @@ class Power(Device):
                 raise ErrMsg("get_crntVCC error")
             return self.crntVP
         except ErrMsg as emsg:
-            print emsg
+            print(emsg)
             
+if __name__ == '__main__':
+
+    import time
+    
+    pwr=Power()
+    pwr.get_device_info()
+    pwr.print_device_info()
+    pwr.open_device()
+    pwr.reset_analogIO()
+    
+    #get the number of channels for AnalogIO
+    pwr.get_number_of_channels()
+    # get the number of node for channel 1
+    pwr.get_nodes_of_channels(1)
+
+    # figure out channel 1, and node 2
+    pwr.what_is_channel_node(1,3)
+    
+    # Configure VP+=2.5V with 50mA current
+    pwr.set_channel_voltage('Vref1',4.0)
+    pwr.set_channel_voltage('Vref2',-3.0)
+    pwr.set_channel_voltage('VP+',5.0)
+    pwr.set_channel_current('VP+',50e-3)
+    
+    pwr.enable_channel('VP+')
+    pwr.enable_channel('Vref1')
+    pwr.enable_channel('Vref2')
+    pwr.analogIO_ON()
+    
+    time.sleep(1)
+    
+    pwr.measure_vmtr()
+    
+    pwr.analogIO_OFF()
+    
+    print('Vmtr1=%.2f V\n'%(pwr.get_vmtr(0)))
+    print('Vmtr2=%.2f V\n'%(pwr.get_vmtr(1)))
+    print('Vmtr3=%.2f V\n'%(pwr.get_vmtr(2)))
+    print('Vmtr4=%.2f V'%(pwr.get_vmtr(3)))
+    
+    del pwr

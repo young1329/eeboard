@@ -1,6 +1,8 @@
 '''
-eeboard V 0.1
+eeboard V 0.2
 Coded by Youngsik Kim @ CSEE . HGU
+
+Connect AWG 1 to Scope 1
 
 test AWG and scope functions
    Generate 1kHz sin wave and measure it with Scope1
@@ -50,7 +52,7 @@ print('Vmtr1=%.2f V'%(pwr.get_vmtr(0)))
 #
 # AWG armed and wait trigger
 awg = AWG()
-print "Created Object awg"
+print("Created Object awg")
 # configure the setup
 awg.AWG_wform('AWG1','sin')
 awg.AWG_freq('AWG1',1000)

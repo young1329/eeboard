@@ -1,5 +1,5 @@
 '''
-eeboard V 0.1
+eeboard V 0.2
 
 Test for Pattern / Digital IO / Power
 
@@ -35,7 +35,7 @@ pttn.DO_set_divider(23,500000)
 pttn.DO_enable_disable(23,True)
 pttn.DO_set_counter(23,1,1)
 pttn.DO_set_form(23,'PP')
-    
+
 #2. Now let them go out
 pttn.DO_start_stop(True) # make them output
 
