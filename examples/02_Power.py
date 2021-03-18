@@ -13,7 +13,7 @@ Test the Power supply and Voltage meter function
 '''
 
 
-from eeboard import Power
+from ..eeboard import Power
 import time
 
 pwr=Power()

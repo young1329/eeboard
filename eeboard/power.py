@@ -6,7 +6,7 @@ Updated to V0.7 @2020.11.17
 	The object should be del at the end to clear out the device handler
 '''
 
-from device import *
+from .device import *
 
 channels = {'Vcc':0, 'VP+':1, 'VP-':2, 'Vref1':3, 'Vref2':4,
            'Vmtr1':5,'Vmtr2':6, 'Vmtr3':7, 'Vmtr4':8}

@@ -11,8 +11,8 @@ Codedy by Yougnsik Kim @ CSEE . HGU
 2018. 09.15
 
 '''
-from eeboard import Logic
-from eeboard import Pattern
+from ..eeboard import Logic
+from ..eeboard import Pattern
 import matplotlib.pyplot as plt
 import numpy as np
 

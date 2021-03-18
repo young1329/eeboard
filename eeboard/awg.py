@@ -5,7 +5,7 @@ Updated to V0.7 @2020.11.17
 	adding destruction
 	The object should be del at the end to clear out the device handler
 '''
-from device import *
+from .device import *
 
 awg_channels ={'AWG1':0, 'AWG2':1, 'VP+':2, 'VP-':3}
 class AWG(Device):

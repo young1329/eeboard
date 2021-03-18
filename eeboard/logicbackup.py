@@ -6,7 +6,7 @@ Updated to V06 @2018.09.12
 	The object should be del at the end to clear out the device handler
 '''
 
-from device import *
+from .device import *
 
 class Logic(Device): 
     def __init__(self,idx=0):

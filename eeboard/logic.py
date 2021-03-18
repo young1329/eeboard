@@ -6,8 +6,8 @@ Updated to V0.7 @2020.11.17
 	The object should be del at the end to clear out the device handler
 '''
 
-from device import *
-from dwfconstants import *
+from .device import *
+from .dwfconstants import *
 
 class Logic(Device): 
     def __init__(self,idx=0):
