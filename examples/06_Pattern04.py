@@ -12,10 +12,10 @@ Coded by Younsik Kim
 2018. 09. 15
 
 '''
-from ..eeboard import Power
-from ..eeboard import Pattern
+from eeboard import Power
+from eeboard import Pattern
+from eeboard import DigitalIO
 import time
-from ..eeboard import DigitalIO
 
 pwr = Power()
 dio = DigitalIO()

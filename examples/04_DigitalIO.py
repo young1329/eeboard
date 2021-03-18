@@ -10,8 +10,8 @@ Digital Static IO Test
 
 '''
 
-from ..eeboard import DigitalIO
-from ..eeboard import Power
+from eeboard import DigitalIO
+from eeboard import Power
 import time
 # Static Digial IO test Tutorial
 pwr = Power()

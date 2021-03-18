@@ -10,9 +10,9 @@ test AWG and scope functions
 
 '''
 
-from ..eeboard import Power
-from ..eeboard import AWG
-from ..eeboard import Scope
+from eeboard import Power
+from eeboard import AWG
+from eeboard import Scope
 
 import time
 import matplotlib.pyplot as plt

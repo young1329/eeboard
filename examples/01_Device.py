@@ -9,7 +9,7 @@ Testing Device is connected
 print device SN when sucess
 '''
 
-from ..eeboard.device import Device
+from eeboard.device import Device
 
 import time
 
