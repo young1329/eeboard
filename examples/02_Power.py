@@ -42,12 +42,13 @@ pwr.set_channel_current('VP+',50e-3)
 pwr.enable_channel('VP+')
 pwr.enable_channel('Vref1')
 pwr.enable_channel('Vref2')
+pwr.analogIO_configure()
+
+# power on
 pwr.analogIO_ON()
-
-time.sleep(1)
-
-pwr.measure_vmtr()
-
+time.sleep(1)   # wait to settle down
+pwr.measure_vmtr() #measure
+#power off
 pwr.analogIO_OFF()
 
 
