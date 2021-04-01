@@ -10,10 +10,12 @@ from .dwfconstants import *
 from ctypes import *
 import time
 import sys
-if sys.platform.startswith("win"):
-    dwf=cdll.dwf
-else:
+if sys.platform.startswith("win"): # windows
+    dwf=cdll.LoadLibrary('dwf.dll')
+elif sys.platform.startswith('linux'): #linux
     dwf=cdll.LoadLibrary("libdwf.so")
+else:   # max osx
+    dwf = cdll.LoadLibrary("/Library/Frameworks/dwf.framework/dwf")
 
 class ErrMsg(Exception):
     def __init__(self,msg):
